@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: sania
+      POSTGRES_PASSWORD: sania
+      POSTGRES_DB: sania_ai_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    depends_on:
+      - db
+    env_file:
+      - ./backend/.env
+    environment:
+      DATABASE_URL: postgresql://sania:sania@db:5432/sania_ai_db
+      FRONTEND_ORIGIN: http://localhost:5173
+    ports:
+      - "8000:8000"
+
+volumes:
+  db_data:

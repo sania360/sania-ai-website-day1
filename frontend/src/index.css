@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand palette */
+  --color-navy: #0b2545;
+  --color-navy-dark: #071a33;
+  --color-teal: #13a89e;
+  --color-teal-light: #5fd1c7;
+  --color-ink: #0d1b2a;
+  --color-mist: #f2f7f7;
+
+  --font-display: "Sora", "Inter", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+
+/* Dark mode driven by a class on <html>, toggled from ThemeContext */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  @apply font-body bg-mist text-ink dark:bg-navy-dark dark:text-mist transition-colors duration-300;
+}
+
+/* Glassmorphism utility used across Navbar/cards */
+.glass {
+  @apply backdrop-blur-xl bg-white/60 dark:bg-white/5 border border-white/20 dark:border-white/10;
+}
+
+.input {
+  @apply w-full rounded-xl border border-navy/15 dark:border-white/15 bg-white/80 dark:bg-white/5 px-4 py-2.5 text-sm text-navy dark:text-mist outline-none focus:border-teal transition-colors;
+}
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-thumb { @apply bg-teal/50 rounded-full; }
